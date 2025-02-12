@@ -5,13 +5,94 @@
             {
                 "indexed": true,
                 "internalType": "uint256",
-                "name": "id",
+                "name": "postId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "commentId",
                 "type": "uint256"
             },
             {
                 "indexed": true,
                 "internalType": "address",
-                "name": "author",
+                "name": "commenter",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "content",
+                "type": "string"
+            }
+        ],
+        "name": "CommentAdded",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "postId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "commentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "CommentDisliked",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "postId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "commentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "CommentLiked",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "postId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "creator",
                 "type": "address"
             },
             {
@@ -30,7 +111,26 @@
             {
                 "indexed": true,
                 "internalType": "uint256",
-                "name": "id",
+                "name": "postId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "PostDisliked",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "postId",
                 "type": "uint256"
             },
             {
@@ -46,6 +146,24 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "_postId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_content",
+                "type": "string"
+            }
+        ],
+        "name": "addComment",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "string",
                 "name": "_content",
                 "type": "string"
@@ -54,6 +172,90 @@
         "name": "createPost",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_postId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_commentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "dislikeComment",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_postId",
+                "type": "uint256"
+            }
+        ],
+        "name": "dislikePost",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "dislikedComments",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "dislikedPosts",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -69,7 +271,7 @@
                     },
                     {
                         "internalType": "address",
-                        "name": "author",
+                        "name": "creator",
                         "type": "address"
                     },
                     {
@@ -81,6 +283,43 @@
                         "internalType": "uint256",
                         "name": "likes",
                         "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "dislikes",
+                        "type": "uint256"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "id",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "commenter",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "content",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "likes",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "dislikes",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct SocialMedia.Comment[]",
+                        "name": "comments",
+                        "type": "tuple[]"
                     }
                 ],
                 "internalType": "struct SocialMedia.Post[]",
@@ -95,13 +334,60 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_id",
+                "name": "_postId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_commentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "likeComment",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_postId",
                 "type": "uint256"
             }
         ],
         "name": "likePost",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "likedComments",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -145,7 +431,7 @@
             },
             {
                 "internalType": "address",
-                "name": "author",
+                "name": "creator",
                 "type": "address"
             },
             {
@@ -156,6 +442,11 @@
             {
                 "internalType": "uint256",
                 "name": "likes",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "dislikes",
                 "type": "uint256"
             }
         ],
